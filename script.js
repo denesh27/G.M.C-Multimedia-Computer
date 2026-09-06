@@ -101,3 +101,34 @@ if ("IntersectionObserver" in window) {
   bars.forEach((b) => barObserver.observe(b));
 }
 
+// Gallery Filter Functionality
+const galleryFilterBtns = document.querySelectorAll(".gallery-filter-btn");
+const galleryCards = document.querySelectorAll(".gallery-card");
+
+galleryFilterBtns.forEach(btn => {
+  btn.addEventListener("click", () => {
+    galleryFilterBtns.forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+
+    const filterValue = btn.getAttribute("data-filter");
+
+    galleryCards.forEach(card => {
+      const cardCategory = card.getAttribute("data-category");
+      if (filterValue === "all" || cardCategory === filterValue) {
+        card.style.display = "block";
+        setTimeout(() => {
+          card.style.opacity = "1";
+          card.style.transform = "translateY(0)";
+        }, 50);
+      } else {
+        card.style.opacity = "0";
+        card.style.transform = "translateY(20px)";
+        setTimeout(() => {
+          card.style.display = "none";
+        }, 200);
+      }
+    });
+  });
+});
+
+
